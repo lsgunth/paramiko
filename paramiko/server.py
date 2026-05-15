@@ -725,8 +725,9 @@ class SubsystemHandler(threading.Thread):
     def finish_subsystem(self):
         """
         Perform any cleanup at the end of a subsystem.  The default
-        implementation just closes the channel.
+        implementation sends a zero exit status and closes the channel.
 
         .. versionadded:: 1.1
         """
+        self.__channel.send_exit_status(0)
         self.__channel.close()
